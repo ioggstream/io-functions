@@ -1539,6 +1539,11 @@ core-js@^2.4.0, core-js@^2.5.0:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
 
+core-js@^2.5.7:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.9.tgz#6b4b214620c834152e179323727fc19741b084f2"
+  integrity sha512-HOpZf6eXmnl7la+cUdMnLvUxKNqLUzJvgIziQ0DiF3JwSImNphIqdGqzj6hIKyX04MmV0poclQ7+wjWvxQyR2A==
+
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
@@ -3809,17 +3814,16 @@ italia-tslint-rules@^1.1.3:
     tslint-sonarts "^1.9.0"
     typestrict "^1.0.2"
 
-italia-utils@^4.0.1:
+italia-utils@teamdigitale/io-utils#update-dependency:
   version "4.0.1"
-  resolved "https://registry.yarnpkg.com/italia-utils/-/italia-utils-4.0.1.tgz#a0e3f46135a38b63de84e0d74d0f79e765d02868"
-  integrity sha512-YBJntWXAv8Bvyjdj8h3CTzVLdIiMI2McXzXW+T0TQHW89uX7lXQtW21eYdpBlbajLlgoKKBjkCE8vFVErJsXcQ==
+  resolved "https://codeload.github.com/teamdigitale/io-utils/tar.gz/d726087ba1aa860fdf819584b9f30029fe063967"
   dependencies:
     fs-extra "^6.0.0"
     italia-ts-commons "^5.0.1"
     nunjucks "^3.1.2"
+    openapi-types "^1.3.5"
     prettier "^1.12.1"
-    swagger-parser "^4.1.0"
-    swagger-schema-official "^2.0.0-bab6bed"
+    swagger-parser "^7.0.0"
     yargs "^11.1.0"
 
 jest-changed-files@^17.0.2:
@@ -4324,6 +4328,14 @@ js-yaml@^3.12.0, js-yaml@^3.7.0:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
+js-yaml@^3.13.1:
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.13.1.tgz#aff151b30bfdfa8e49e05da22e7415e9dfa37847"
+  integrity sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^4.0.0"
+
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -4433,7 +4445,7 @@ json-parse-better-errors@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
 
-json-schema-ref-parser@^5.0.3, json-schema-ref-parser@^5.1.3:
+json-schema-ref-parser@^5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/json-schema-ref-parser/-/json-schema-ref-parser-5.1.3.tgz#f86c5868f40898e69169e1bbc854725a4fd0e1ad"
   dependencies:
@@ -4441,6 +4453,15 @@ json-schema-ref-parser@^5.0.3, json-schema-ref-parser@^5.1.3:
     debug "^3.1.0"
     js-yaml "^3.12.0"
     ono "^4.0.6"
+
+json-schema-ref-parser@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/json-schema-ref-parser/-/json-schema-ref-parser-7.1.0.tgz#987582b19fa06a37db4797d4e825879a7aea127c"
+  integrity sha512-eP9+39HimQUpmqEUHRpV+oh8hiVMRU2tD6H+8uDc0raCQxX6jARN4nSJe5OpAtPt7eObuIUIsW7AwvGBzCHavQ==
+  dependencies:
+    call-me-maybe "^1.0.1"
+    js-yaml "^3.13.1"
+    ono "^5.0.1"
 
 json-schema-traverse@^0.3.0:
   version "0.3.1"
@@ -4816,9 +4837,10 @@ lodash.foreach@^4.3.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.foreach/-/lodash.foreach-4.5.0.tgz#1a6a35eace401280c7f06dddec35165ab27e3e53"
 
-lodash.get@^4.0.0:
+lodash.get@^4.0.0, lodash.get@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
 lodash.includes@^4.3.0:
   version "4.3.0"
@@ -4836,9 +4858,10 @@ lodash.isboolean@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz#6c2e171db2a257cd96802fd43b01b20d5f5870f6"
 
-lodash.isequal@^4.0.0:
+lodash.isequal@^4.0.0, lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
 lodash.isinteger@^4.0.4:
   version "4.0.4"
@@ -5910,11 +5933,16 @@ one-time@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/one-time/-/one-time-0.0.4.tgz#f8cdf77884826fe4dff93e3a9cc37b1e4480742e"
 
-ono@^4.0.5, ono@^4.0.6:
+ono@^4.0.6:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/ono/-/ono-4.0.7.tgz#02ac0c8efd58a9bd843956c3d5de018447ce1598"
   dependencies:
     format-util "^1.0.3"
+
+ono@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/ono/-/ono-5.0.1.tgz#a39e0af7ab2c2a143a06f08ad9d187e61f9da0c8"
+  integrity sha512-4/4BPGHX8OuDDNx1SrOqTOI7zajPjvBvrG1jDG3hDq4qBpoKlzG2d83Vdz26hvv0FFWYsLdHf+1Vu/k2d8Ww9w==
 
 openapi-schema-validation@^0.4.2:
   version "0.4.2"
@@ -5923,6 +5951,11 @@ openapi-schema-validation@^0.4.2:
     jsonschema "1.2.4"
     jsonschema-draft4 "^1.0.0"
     swagger-schema-official "2.0.0-bab6bed"
+
+openapi-types@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/openapi-types/-/openapi-types-1.3.5.tgz#6718cfbc857fe6c6f1471f65b32bdebb9c10ce40"
+  integrity sha512-11oi4zYorsgvg5yBarZplAqbpev5HkuVNPlZaPTknPDzAynq+lnJdXAmruGWP0s+dNYZS7bjM+xrTpJw7184Fg==
 
 optimist@^0.6.1:
   version "0.6.1"
@@ -7337,17 +7370,10 @@ swagger-methods@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/swagger-methods/-/swagger-methods-1.0.4.tgz#2c5b844f4a22ab2f5e773f98193c28e386b1c37e"
 
-swagger-parser@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/swagger-parser/-/swagger-parser-4.1.0.tgz#5fb08ccc0c5abb8f9de7cba6c5e437736d8a10f5"
-  dependencies:
-    call-me-maybe "^1.0.1"
-    debug "^3.1.0"
-    json-schema-ref-parser "^5.0.3"
-    ono "^4.0.5"
-    swagger-methods "^1.0.4"
-    swagger-schema-official "2.0.0-bab6bed"
-    z-schema "^3.19.1"
+swagger-methods@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/swagger-methods/-/swagger-methods-2.0.0.tgz#e1260876e7638b8a5d61ae5735ad9d5e97f4f09d"
+  integrity sha512-afMNP6XtF7w4XB2pFuF07JNrHGaKoppwC0O3Zrkv0PWGbMT3KyFYpk4lzdcax7RYV1JgMZeatX8ndYjL2y+0tQ==
 
 swagger-parser@^5.0.0:
   version "5.0.5"
@@ -7362,7 +7388,21 @@ swagger-parser@^5.0.0:
     swagger-schema-official "2.0.0-bab6bed"
     z-schema "^3.23.0"
 
-swagger-schema-official@2.0.0-bab6bed, swagger-schema-official@^2.0.0-bab6bed:
+swagger-parser@^7.0.0:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/swagger-parser/-/swagger-parser-7.0.1.tgz#da6892673b66b0cd831b26d63ce5914eeda7ee47"
+  integrity sha512-73FAlW1xqtkGLsxp41C4ASXPyEeJ9h38SGJRSDH0gSImjG5XzlbFb2EWsnhakLZfKOG/VsjzKQjO5aenmDSw/g==
+  dependencies:
+    call-me-maybe "^1.0.1"
+    json-schema-ref-parser "^7.1.0"
+    ono "^5.0.1"
+    openapi-schema-validation "^0.4.2"
+    openapi-types "^1.3.5"
+    swagger-methods "^2.0.0"
+    swagger-schema-official "2.0.0-bab6bed"
+    z-schema "^4.1.0"
+
+swagger-schema-official@2.0.0-bab6bed:
   version "2.0.0-bab6bed"
   resolved "https://registry.yarnpkg.com/swagger-schema-official/-/swagger-schema-official-2.0.0-bab6bed.tgz#70070468d6d2977ca5237b2e519ca7d06a2ea3fd"
 
@@ -7900,6 +7940,11 @@ validator@^10.0.0, validator@^10.1.0, validator@^10.4.0:
   version "10.7.1"
   resolved "https://registry.yarnpkg.com/validator/-/validator-10.7.1.tgz#dd4cc750c2134ce4a15a2acfc7b233669d659c5b"
 
+validator@^10.11.0:
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-10.11.0.tgz#003108ea6e9a9874d31ccc9e5006856ccd76b228"
+  integrity sha512-X/p3UZerAIsbBfN/IwahhYaBbY68EN/UQBWHtsbXGT5bfrH/p4NQzUCG1kF/rtKaNpnJ7jAu6NGTdSNtyNIXMw==
+
 validator@~9.4.1:
   version "9.4.1"
   resolved "http://registry.npmjs.org/validator/-/validator-9.4.1.tgz#abf466d398b561cd243050112c6ff1de6cc12663"
@@ -8388,13 +8433,25 @@ yn@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
 
-z-schema@^3.19.1, z-schema@^3.23.0:
+z-schema@^3.23.0:
   version "3.23.0"
   resolved "https://registry.yarnpkg.com/z-schema/-/z-schema-3.23.0.tgz#a80a8822938a3038591761a655a899f2833d5e51"
   dependencies:
     lodash.get "^4.0.0"
     lodash.isequal "^4.0.0"
     validator "^10.0.0"
+  optionalDependencies:
+    commander "^2.7.1"
+
+z-schema@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/z-schema/-/z-schema-4.1.0.tgz#8f824eabffdf018875cbcfa9b92dc3a348140b76"
+  integrity sha512-C4In7uaih70TVnpCDtfnMeCjGRIkaikT8Yxqgz0GZrLJ3nkI5TsdRPOOjEYaebRnxGlbX68qeBSOBdbCufaqjQ==
+  dependencies:
+    core-js "^2.5.7"
+    lodash.get "^4.4.2"
+    lodash.isequal "^4.5.0"
+    validator "^10.11.0"
   optionalDependencies:
     commander "^2.7.1"
 
