@@ -9,11 +9,11 @@ import * as t from "io-ts";
 
 import * as winston from "winston";
 
-import { IContext } from "azure-functions-types";
+import { Context } from "@azure/functions";
 
 import { DocumentClient as DocumentDBClient } from "documentdb";
 
-import { configureAzureContextTransport } from "./utils/logging";
+import { configureAzureContextTransport } from "io-functions-commons/dist/src/utils/logging";
 
 import * as documentDbUtils from "io-functions-commons/dist/src/utils/documentdb";
 
@@ -29,7 +29,7 @@ import {
 
 import { NewMessageDefaultAddresses } from "./api/definitions/NewMessageDefaultAddresses";
 
-import { getRequiredStringEnv } from "./utils/env";
+import { getRequiredStringEnv } from "io-functions-commons/dist/src/utils/env";
 
 import { CreatedMessageEvent } from "io-functions-commons/dist/src/models/created_message_event";
 import {
@@ -70,7 +70,7 @@ import { NotificationChannelEnum } from "./api/definitions/NotificationChannel";
 import { NonEmptyString } from "italia-ts-commons/lib/strings";
 import { withoutUndefinedValues } from "italia-ts-commons/lib/types";
 
-import { TelemetryClient } from "applicationinsights";
+import { TelemetryClient } from "io-functions-commons/dist/src/utils/application_insights";
 import { BlockedInboxOrChannelEnum } from "./api/definitions/BlockedInboxOrChannel";
 import { HttpsUrl } from "./api/definitions/HttpsUrl";
 import { MessageContent } from "./api/definitions/MessageContent";
@@ -87,7 +87,7 @@ import {
   SenderServiceModel
 } from "io-functions-commons/dist/src/models/sender_service";
 
-import { wrapCustomTelemetryClient } from "./utils/application_insights";
+import { wrapCustomTelemetryClient } from "io-functions-commons/dist/src/utils/application_insights";
 
 import { ulidGenerator } from "io-functions-commons/dist/src/utils/strings";
 
@@ -197,7 +197,7 @@ const ContextWithBindings = t.interface({
   bindings: t.intersection([InputBindings, OutputBindings])
 });
 
-type ContextWithBindings = t.TypeOf<typeof ContextWithBindings> & IContext;
+type ContextWithBindings = t.TypeOf<typeof ContextWithBindings> & Context;
 
 /**
  * Attempt to resolve an email address from

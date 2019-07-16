@@ -1,22 +1,22 @@
 /**
  * Main entrypoint for the public APIs handlers
  */
-import { getRequiredStringEnv } from "./utils/env";
+import { getRequiredStringEnv } from "io-functions-commons/dist/src/utils/env";
 
-import { IContext } from "azure-function-express";
+import { Context } from "@azure/functions";
 
 import * as cors from "cors";
 import * as winston from "winston";
 
-import { setAppContext } from "./utils/middlewares/context_middleware";
+import { setAppContext } from "io-functions-commons/dist/src/utils/middlewares/context_middleware";
 
-import { configureAzureContextTransport } from "./utils/logging";
+import { configureAzureContextTransport } from "io-functions-commons/dist/src/utils/logging";
 
 import { DocumentClient as DocumentDBClient } from "documentdb";
 
 import * as documentDbUtils from "io-functions-commons/dist/src/utils/documentdb";
 
-import { createAzureFunctionHandler } from "azure-function-express";
+import createAzureFunctionHandler from "io-functions-express/dist/src/createAzureFunctionsHandler";
 
 import {
   MESSAGE_COLLECTION_NAME,
@@ -41,7 +41,7 @@ import { CreateMessage, GetMessage, GetMessages } from "./controllers/messages";
 import { GetProfile, UpsertProfile } from "./controllers/profiles";
 
 import * as express from "express";
-import { secureExpressApp } from "./utils/express";
+import { secureExpressApp } from "io-functions-commons/dist/src/utils/express";
 
 import { createBlobService } from "azure-storage";
 
@@ -63,8 +63,8 @@ import {
   GetVisibleServices
 } from "./controllers/services";
 
-import { TelemetryClient } from "applicationinsights";
-import { wrapCustomTelemetryClient } from "./utils/application_insights";
+import { TelemetryClient } from "io-functions-commons/dist/src/utils/application_insights";
+import { wrapCustomTelemetryClient } from "io-functions-commons/dist/src/utils/application_insights";
 
 // Whether we're in a production environment
 const isProduction = process.env.NODE_ENV === "production";
@@ -200,7 +200,7 @@ app.get("/api/v1/info", GetInfo(serviceModel));
 const azureFunctionHandler = createAzureFunctionHandler(app);
 
 // Binds the express app to an Azure Function handler
-export function index(context: IContext<{}>): void {
+export function index(context: Context): void {
   const logLevel = isProduction ? "info" : "debug";
   configureAzureContextTransport(context, winston, logLevel);
   setAppContext(app, context);

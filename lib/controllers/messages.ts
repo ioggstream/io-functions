@@ -8,9 +8,9 @@ import * as winston from "winston";
 import {
   ClientIp,
   ClientIpMiddleware
-} from "../utils/middlewares/client_ip_middleware";
+} from "io-functions-commons/dist/src/utils/middlewares/client_ip_middleware";
 
-import { IContext } from "azure-function-express";
+import { Context } from "@azure/functions";
 
 import { CreatedMessageWithoutContent } from "../api/definitions/CreatedMessageWithoutContent";
 import { FiscalCode } from "../api/definitions/FiscalCode";
@@ -20,15 +20,31 @@ import { NewMessage as ApiNewMessage } from "../api/definitions/NewMessage";
 
 import { CreatedMessageEvent } from "io-functions-commons/dist/src/models/created_message_event";
 
-import { RequiredParamMiddleware } from "../utils/middlewares/required_param";
+import { RequiredParamMiddleware } from "io-functions-commons/dist/src/utils/middlewares/required_param";
 
 import {
   IResponseErrorQuery,
   IResponseSuccessJsonIterator,
   ResponseErrorQuery,
   ResponseJsonIterator
-} from "../utils/response";
+} from "io-functions-commons/dist/src/utils/response";
 
+import {
+  AzureApiAuthMiddleware,
+  IAzureApiAuthorization,
+  UserGroup
+} from "io-functions-commons/dist/src/utils/middlewares/azure_api_auth";
+import {
+  AzureUserAttributesMiddleware,
+  IAzureUserAttributes
+} from "io-functions-commons/dist/src/utils/middlewares/azure_user_attributes";
+import { ContextMiddleware } from "io-functions-commons/dist/src/utils/middlewares/context_middleware";
+import { FiscalCodeMiddleware } from "io-functions-commons/dist/src/utils/middlewares/fiscalcode";
+import {
+  IRequestMiddleware,
+  withRequestMiddlewares,
+  wrapRequestHandler
+} from "io-functions-commons/dist/src/utils/request_middleware";
 import {
   ObjectIdGenerator,
   ulidGenerator
@@ -56,27 +72,11 @@ import {
   ResponseSuccessRedirectToResource
 } from "italia-ts-commons/lib/responses";
 import { NonEmptyString } from "italia-ts-commons/lib/strings";
-import {
-  AzureApiAuthMiddleware,
-  IAzureApiAuthorization,
-  UserGroup
-} from "../utils/middlewares/azure_api_auth";
-import {
-  AzureUserAttributesMiddleware,
-  IAzureUserAttributes
-} from "../utils/middlewares/azure_user_attributes";
-import { ContextMiddleware } from "../utils/middlewares/context_middleware";
-import { FiscalCodeMiddleware } from "../utils/middlewares/fiscalcode";
-import {
-  IRequestMiddleware,
-  withRequestMiddlewares,
-  wrapRequestHandler
-} from "../utils/request_middleware";
 
 import {
   checkSourceIpForHandler,
   clientIPAndCidrTuple as ipTuple
-} from "../utils/source_ip_check";
+} from "io-functions-commons/dist/src/utils/source_ip_check";
 
 import {
   filterResultIterator,
@@ -108,25 +108,16 @@ import {
 
 import { MessageStatusModel } from "io-functions-commons/dist/src/models/message_status";
 import { NotificationStatusModel } from "io-functions-commons/dist/src/models/notification_status";
+import {
+  CustomTelemetryClientFactory,
+  diffInMilliseconds
+} from "io-functions-commons/dist/src/utils/application_insights";
 import { CreatedMessageWithContent } from "../api/definitions/CreatedMessageWithContent";
 import { MessageResponseWithoutContent } from "../api/definitions/MessageResponseWithoutContent";
 import { MessageStatusValueEnum } from "../api/definitions/MessageStatusValue";
 import { NotificationChannelEnum } from "../api/definitions/NotificationChannel";
 import { NotificationChannelStatusValueEnum } from "../api/definitions/NotificationChannelStatusValue";
 import { TimeToLiveSeconds } from "../api/definitions/TimeToLiveSeconds";
-import {
-  CustomTelemetryClientFactory,
-  diffInMilliseconds
-} from "../utils/application_insights";
-
-/**
- * Input and output bindings for this function
- * see CreatedMessageQueueHandler/function.json
- */
-interface IBindings {
-  // tslint:disable-next-line:readonly-keyword
-  createdMessage?: CreatedMessageEvent;
-}
 
 const ApiNewMessageWithDefaults = t.intersection([
   ApiNewMessage,
@@ -174,7 +165,7 @@ function retrievedMessageToPublic(
  * further processing.
  */
 type ICreateMessageHandler = (
-  context: IContext<IBindings>,
+  context: Context,
   auth: IAzureApiAuthorization,
   clientIp: ClientIp,
   attrs: IAzureUserAttributes,
@@ -563,7 +554,7 @@ export function CreateMessage(
   );
   const middlewaresWrap = withRequestMiddlewares(
     // extract Azure Functions bindings
-    ContextMiddleware<IBindings>(),
+    ContextMiddleware(),
     // allow only users in the ApiMessageWrite and ApiMessageWriteLimited groups
     AzureApiAuthMiddleware(
       new Set([UserGroup.ApiMessageWrite, UserGroup.ApiLimitedMessageWrite])

@@ -7,28 +7,28 @@ import * as express from "express";
 import {
   AzureUserAttributesMiddleware,
   IAzureUserAttributes
-} from "../utils/middlewares/azure_user_attributes";
+} from "io-functions-commons/dist/src/utils/middlewares/azure_user_attributes";
 
 import {
   ClientIp,
   ClientIpMiddleware
-} from "../utils/middlewares/client_ip_middleware";
+} from "io-functions-commons/dist/src/utils/middlewares/client_ip_middleware";
 
 import {
   withRequestMiddlewares,
   wrapRequestHandler
-} from "../utils/request_middleware";
+} from "io-functions-commons/dist/src/utils/request_middleware";
 
 import {
   AzureApiAuthMiddleware,
   IAzureApiAuthorization,
   UserGroup
-} from "../utils/middlewares/azure_api_auth";
+} from "io-functions-commons/dist/src/utils/middlewares/azure_api_auth";
 
 import {
   checkSourceIpForHandler,
   clientIPAndCidrTuple as ipTuple
-} from "../utils/source_ip_check";
+} from "io-functions-commons/dist/src/utils/source_ip_check";
 
 import {
   IResponseSuccessJson,

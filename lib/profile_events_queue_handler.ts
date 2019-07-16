@@ -7,22 +7,22 @@ import * as t from "io-ts";
 import * as request from "superagent";
 import * as winston from "winston";
 
-import { IContext } from "azure-functions-types";
+import { Context } from "@azure/functions";
+import { configureAzureContextTransport } from "io-functions-commons/dist/src/utils/logging";
 import {
   IProfileCreatedEvent,
   IProfileUpdatedEvent
 } from "./controllers/profiles";
-import { configureAzureContextTransport } from "./utils/logging";
 
+import { getRequiredStringEnv } from "io-functions-commons/dist/src/utils/env";
 import { readableReport } from "italia-ts-commons/lib/reporters";
 import { FiscalCode } from "italia-ts-commons/lib/strings";
 import { ExtendedProfile } from "./api/definitions/ExtendedProfile";
 import { NewMessage } from "./api/definitions/NewMessage";
-import { getRequiredStringEnv } from "./utils/env";
 
-import { TelemetryClient } from "applicationinsights";
+import { TelemetryClient } from "io-functions-commons/dist/src/utils/application_insights";
+import { wrapCustomTelemetryClient } from "io-functions-commons/dist/src/utils/application_insights";
 import { ulidGenerator } from "io-functions-commons/dist/src/utils/strings";
-import { wrapCustomTelemetryClient } from "./utils/application_insights";
 
 const ContextWithBindings = t.exact(
   t.interface({
@@ -30,7 +30,7 @@ const ContextWithBindings = t.exact(
   })
 );
 
-type ContextWithBindings = t.TypeOf<typeof ContextWithBindings> & IContext;
+type ContextWithBindings = t.TypeOf<typeof ContextWithBindings> & Context;
 
 // HTTP external requests timeout in milliseconds
 const DEFAULT_REQUEST_TIMEOUT_MS = 10000;

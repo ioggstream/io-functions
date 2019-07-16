@@ -9,7 +9,7 @@ import * as t from "io-ts";
 
 import * as winston from "winston";
 
-import { configureAzureContextTransport } from "./utils/logging";
+import { configureAzureContextTransport } from "io-functions-commons/dist/src/utils/logging";
 
 import { DocumentClient as DocumentDBClient } from "documentdb";
 
@@ -17,13 +17,13 @@ import * as documentDbUtils from "io-functions-commons/dist/src/utils/documentdb
 
 import { Either, isLeft, left, right } from "fp-ts/lib/Either";
 import { isNone } from "fp-ts/lib/Option";
+import { getRequiredStringEnv } from "io-functions-commons/dist/src/utils/env";
 import { readableReport } from "italia-ts-commons/lib/reporters";
-import { getRequiredStringEnv } from "./utils/env";
 
-import { IContext } from "azure-functions-types";
+import { Context } from "@azure/functions";
 
+import { MailUpTransport } from "io-functions-commons/dist/src/utils/mailup";
 import * as NodeMailer from "nodemailer";
-import { MailUpTransport } from "./utils/mailup";
 
 import * as HtmlToText from "html-to-text";
 
@@ -37,7 +37,7 @@ import {
 } from "io-functions-commons/dist/src/models/notification";
 import { NotificationEvent } from "io-functions-commons/dist/src/models/notification_event";
 
-import { markdownToHtml } from "./utils/markdown";
+import { markdownToHtml } from "io-functions-commons/dist/src/utils/markdown";
 
 import {
   ExpiredError,
@@ -55,18 +55,18 @@ import { createQueueService } from "azure-storage";
 import { NotificationChannelEnum } from "./api/definitions/NotificationChannel";
 import { NotificationChannelStatusValueEnum } from "./api/definitions/NotificationChannelStatusValue";
 
-import { TelemetryClient } from "applicationinsights";
 import { ActiveMessage } from "io-functions-commons/dist/src/models/message";
 import {
   getNotificationStatusUpdater,
   NOTIFICATION_STATUS_COLLECTION_NAME,
   NotificationStatusModel
 } from "io-functions-commons/dist/src/models/notification_status";
-import { NonEmptyString } from "italia-ts-commons/lib/strings";
+import { TelemetryClient } from "io-functions-commons/dist/src/utils/application_insights";
 import {
   diffInMilliseconds,
   wrapCustomTelemetryClient
-} from "./utils/application_insights";
+} from "io-functions-commons/dist/src/utils/application_insights";
+import { NonEmptyString } from "italia-ts-commons/lib/strings";
 
 import * as SendgridTransport from "nodemailer-sendgrid-transport";
 
@@ -167,7 +167,7 @@ const ContextWithBindings = t.interface({
   })
 });
 
-type ContextWithBindings = t.TypeOf<typeof ContextWithBindings> & IContext;
+type ContextWithBindings = t.TypeOf<typeof ContextWithBindings> & Context;
 
 type OutputBindings = never;
 

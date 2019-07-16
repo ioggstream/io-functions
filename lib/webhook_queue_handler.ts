@@ -12,7 +12,7 @@ import * as request from "superagent";
 
 import * as winston from "winston";
 
-import { configureAzureContextTransport } from "./utils/logging";
+import { configureAzureContextTransport } from "io-functions-commons/dist/src/utils/logging";
 
 import { DocumentClient as DocumentDBClient } from "documentdb";
 
@@ -20,10 +20,10 @@ import * as documentDbUtils from "io-functions-commons/dist/src/utils/documentdb
 
 import { Either, isLeft, left, right } from "fp-ts/lib/Either";
 import { isNone } from "fp-ts/lib/Option";
+import { getRequiredStringEnv } from "io-functions-commons/dist/src/utils/env";
 import { readableReport } from "italia-ts-commons/lib/reporters";
-import { getRequiredStringEnv } from "./utils/env";
 
-import { IContext } from "azure-functions-types";
+import { Context } from "@azure/functions";
 
 import {
   NOTIFICATION_COLLECTION_NAME,
@@ -46,7 +46,6 @@ import { createQueueService } from "azure-storage";
 import { NotificationChannelEnum } from "./api/definitions/NotificationChannel";
 import { NotificationChannelStatusValueEnum } from "./api/definitions/NotificationChannelStatusValue";
 
-import { TelemetryClient } from "applicationinsights";
 import { CreatedMessageEventSenderMetadata } from "io-functions-commons/dist/src/models/created_message_sender_metadata";
 import {
   ActiveMessage,
@@ -57,16 +56,17 @@ import {
   NOTIFICATION_STATUS_COLLECTION_NAME,
   NotificationStatusModel
 } from "io-functions-commons/dist/src/models/notification_status";
+import { TelemetryClient } from "io-functions-commons/dist/src/utils/application_insights";
+import {
+  diffInMilliseconds,
+  wrapCustomTelemetryClient
+} from "io-functions-commons/dist/src/utils/application_insights";
 import { NonEmptyString } from "italia-ts-commons/lib/strings";
 import { UrlFromString } from "italia-ts-commons/lib/url";
 import { CreatedMessageWithContent } from "./api/definitions/CreatedMessageWithContent";
 import { HttpsUrl } from "./api/definitions/HttpsUrl";
 import { MessageContent } from "./api/definitions/MessageContent";
 import { SenderMetadata } from "./api/definitions/SenderMetadata";
-import {
-  diffInMilliseconds,
-  wrapCustomTelemetryClient
-} from "./utils/application_insights";
 
 // Whether we're in a production environment
 const isProduction = process.env.NODE_ENV === "production";
@@ -129,7 +129,7 @@ const ContextWithBindings = t.interface({
   })
 });
 
-type ContextWithBindings = t.TypeOf<typeof ContextWithBindings> & IContext;
+type ContextWithBindings = t.TypeOf<typeof ContextWithBindings> & Context;
 
 type OutputBindings = never;
 
